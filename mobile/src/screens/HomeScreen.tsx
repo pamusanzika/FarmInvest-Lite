@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+
 import {
   View,
   Text,
@@ -6,6 +7,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Alert,
+  Image,
+  ImageBackground,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Investment, InvestmentFormData } from '../types';
@@ -110,47 +113,60 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="dark" />
-      <View style={styles.header}>
-        <View>
-          <Text style={styles.title}>FarmInvest Lite</Text>
-          <Text style={styles.subtitle}>Track your agricultural investments</Text>
-        </View>
-        <TouchableOpacity
-          style={styles.addButton}
-          onPress={() => setShowModal(true)}
-        >
-          <Text style={styles.addButtonText}>+ New</Text>
-        </TouchableOpacity>
-      </View>
-
-      <InvestmentList
-        investments={investments}
-        refreshing={refreshing}
-        onRefresh={() => fetchInvestments(true)}
-        ListEmptyComponent={
-          <View style={styles.emptyState}>
-            <Text style={styles.emptyIcon}>🌾</Text>
-            <Text style={styles.emptyTitle}>No Investments Yet</Text>
-            <Text style={styles.emptyMessage}>
-              Start by creating your first investment
-            </Text>
-            <TouchableOpacity
-              style={styles.emptyButton}
-              onPress={() => setShowModal(true)}
-            >
-              <Text style={styles.emptyButtonText}>Create Investment</Text>
-            </TouchableOpacity>
+      <ImageBackground
+        source={require('../../assets/Bg.png')}
+        style={styles.backgroundImage}
+        resizeMode="cover"
+      >
+        <View style={styles.overlay} />
+        <StatusBar style="dark" />
+        <View style={styles.header}>
+          <View style={styles.headerContent}>
+            <Image
+              source={require('../../assets/logo.png')}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+            <View style={styles.headerText}>
+              <Text style={styles.title}>FarmInvest Lite</Text>
+            </View>
           </View>
-        }
-      />
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={() => setShowModal(true)}
+          >
+            <Text style={styles.addButtonText}>+ New</Text>
+          </TouchableOpacity>
+        </View>
 
-      <CreateInvestmentModal
-        visible={showModal}
-        onClose={() => setShowModal(false)}
-        onSubmit={handleCreateInvestment}
-        submitting={submitting}
-      />
+        <InvestmentList
+          investments={investments}
+          refreshing={refreshing}
+          onRefresh={() => fetchInvestments(true)}
+          ListEmptyComponent={
+            <View style={styles.emptyState}>
+              <Text style={styles.emptyIcon}>🌾</Text>
+              <Text style={styles.emptyTitle}>No Investments Yet</Text>
+              <Text style={styles.emptyMessage}>
+                Start by creating your first investment
+              </Text>
+              <TouchableOpacity
+                style={styles.emptyButton}
+                onPress={() => setShowModal(true)}
+              >
+                <Text style={styles.emptyButtonText}>Create Investment</Text>
+              </TouchableOpacity>
+            </View>
+          }
+        />
+
+        <CreateInvestmentModal
+          visible={showModal}
+          onClose={() => setShowModal(false)}
+          onSubmit={handleCreateInvestment}
+          submitting={submitting}
+        />
+      </ImageBackground>
     </View>
   );
 }
@@ -159,6 +175,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f0fdf4',
+  },
+  backgroundImage: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(240, 253, 244, 0.85)',
   },
   centered: {
     flex: 1,
@@ -207,6 +232,18 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+  },
+  headerContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  logo: {
+    width: 40,
+    height: 40,
+    marginRight: 12,
+  },
+  headerText: {
+    flexDirection: 'column',
   },
   title: {
     fontSize: 24,

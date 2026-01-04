@@ -2,7 +2,7 @@ import { Investment } from '../types';
 
 // IMPORTANT: Replace with your machine's IP address for device testing
 // Find your IP: Mac/Linux: ifconfig | grep "inet ", Windows: ipconfig
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'http://192.168.8.144:3000/api';
 
 export const investmentService = {
   async getInvestments(): Promise<Investment[]> {
