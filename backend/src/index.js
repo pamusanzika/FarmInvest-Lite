@@ -31,5 +31,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 FarmInvest Backend running on http://localhost:${PORT}`);
+  console.log(`FarmInvest Backend running on http://localhost:${PORT}`);
 });
