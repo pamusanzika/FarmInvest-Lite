@@ -1,0 +1,11 @@
+CREATE DATABASE IF NOT EXISTS farminvest;
+USE farminvest;
+
+CREATE TABLE IF NOT EXISTS investments (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  farmer_name VARCHAR(255) NOT NULL,
+  crop VARCHAR(100) NOT NULL,
+  amount DECIMAL(10, 2) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_created_at (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
